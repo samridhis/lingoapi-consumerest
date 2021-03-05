@@ -1,11 +1,16 @@
 package com.javainuse.main;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+@SpringBootApplication
 public class MainApp {
 
     public static void main(String[] args) {
+        SpringApplication.run(MainApp.class, args);
+/*
         AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext-camel.xml");
         ctx.start();
         System.out.println("Application context started");
@@ -17,5 +22,7 @@ public class MainApp {
         }
         ctx.stop();
         ctx.close();
+        */
+
     }
 }
