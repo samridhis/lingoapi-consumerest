@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="apache-camel-consume" target="1.8" />
+      <module name="apache-camel-consume" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
