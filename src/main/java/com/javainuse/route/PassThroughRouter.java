@@ -1,6 +1,5 @@
 package com.javainuse.route;
 
-import com.javainuse.processor.MyProcessor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
@@ -8,14 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PassThroughRouter extends RouteBuilder {
-
+	//restConfiguration().component("servlet").bindingMode(RestConfiguration.RestBindingMode.auto);
+	//restCofiguration().
 	private final String endPoint = "http://jsonplaceholder.typicode.com/todos/1";
-
-	private final MyProcessor processor;
-
-	public PassThroughRouter(MyProcessor processor) {
-		this.processor = processor;
-	}
 
 	@Override
 	public void configure() throws Exception {
@@ -34,4 +28,6 @@ public class PassThroughRouter extends RouteBuilder {
 						.convertBodyTo(String.class)
 						.endRest();
 	}
+
+
 }
