@@ -1,5 +1,6 @@
 package com.javainuse.processor;
 
+import com.javainuse.model.Root;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
@@ -12,10 +13,11 @@ public class MyProcessor implements Processor {
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
-		var body = exchange.getIn().getBody(String.class);
+		var body = exchange.getIn().getBody(Root.class);
 		LOGGER.info("my body: {}", body);
-		System.out.println("Ahaan is printing in this method");
-		exchange.getIn().setBody("Changed Body");
+		System.out.println("Ahaan is printing in this method" + body);
+		exchange.getOut().setBody(body);
+		//exchange.getOut().setHeader("id",);
 	}
 }
 
