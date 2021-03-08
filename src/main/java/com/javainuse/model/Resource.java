@@ -1,7 +1,10 @@
 package com.javainuse.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Resource {
     public String resourceType;
     public String id;

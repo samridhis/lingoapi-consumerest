@@ -1,7 +1,12 @@
 package com.javainuse.model;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.util.List;
 
+@Data
+@ToString
 public class Root {
     public String resourceType;
     public String id;

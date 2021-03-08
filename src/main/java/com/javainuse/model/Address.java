@@ -1,7 +1,10 @@
 package com.javainuse.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Address {
     public List<String> line;
     public String city;

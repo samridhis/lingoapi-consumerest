@@ -1,7 +1,10 @@
 package com.javainuse.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Telecom{
     public List<Extension> extension;
     public String system;

@@ -13,11 +13,16 @@ public class MyProcessor implements Processor {
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
-		var body = exchange.getIn().getBody(Root.class);
-		LOGGER.info("my body: {}", body);
-		System.out.println("Ahaan is printing in this method" + body);
-		exchange.getOut().setBody(body);
-		//exchange.getOut().setHeader("id",);
+		LOGGER.info("I'm here");
+		var body = exchange.getIn().getBody();
+
+		if (body instanceof Root){
+			Root root = (Root) body;
+
+			LOGGER.info("my body: {}", root);
+
+			exchange.getMessage().setBody(body);
+		}
 	}
 }
 
