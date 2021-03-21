@@ -11,35 +11,40 @@ import org.springframework.stereotype.Component;
 public class PassThroughRouter extends RouteBuilder {
 	//restConfiguration().component("servlet").bindingMode(RestConfiguration.RestBindingMode.auto);
 	//restCofiguration().
-	private final String endPoint = "http://jsonplaceholder.typicode.com/todos/1";
+	private final String endPoint = "https://pegacorn-hestia-gateway.site-a:30302/pegacorn/internal/fhir/r4/Practitioner?_pretty=true";
 
 	JacksonDataFormat jacksonDataFormat = new JacksonDataFormat(Root.class);
 
 	@Override
 	public void configure() throws Exception {
-		from("direct:myService")
-						.streamCaching() //
-						.setHeader(Exchange.HTTP_METHOD, simple("GET"))
-						.setHeader("authority", simple("samfhirsdf.azurehealthcareapis.com"))
-						.setHeader("accept", simple("/"))
-						.setHeader("authorization", simple("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiJodHRwczovL3NhbWZoaXJzZGYuYXp1cmVoZWFsdGhjYXJlYXBpcy5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80Y2E1MjI5My02NjlmLTRmYTgtODA3OC1mOGViOGI4MWE0OGQvIiwiaWF0IjoxNjE1MTY4MzkxLCJuYmYiOjE2MTUxNjgzOTEsImV4cCI6MTYxNTE3MjI5MSwiYWNyIjoiMSIsImFpbyI6IkFWUUFxLzhUQUFBQWZWdGRjNCtKeldiKytTRWoyblVRRkZtWkJJQU1saHRZUHdsdjk4dWtSUkhYbmVodEszYTduOVRRTmhndDVYUHNWbFpteDJBVU9YRkhTR1ZPMWlSaE9CYSt4QWdzek02c2VXbEpISkx4TTBFPSIsImFtciI6WyJwd2QiXSwiYXBwaWQiOiJmYjYxMWQ5ZS1mZTk5LTQ1YzEtYmY5Ny1mZWExNmQ1NDU0MjMiLCJhcHBpZGFjciI6IjEiLCJlbWFpbCI6InNhbXJpZGhpczE5ODBAaG90bWFpbC5jb20iLCJmYW1pbHlfbmFtZSI6IlNodSIsImdpdmVuX25hbWUiOiJTYW0iLCJpZHAiOiJsaXZlLmNvbSIsImlwYWRkciI6IjU4LjEwNS4xOTcuODEiLCJuYW1lIjoiU2FtIFNodSIsIm9pZCI6ImIwZmRmZjk3LTJmYjctNGQzNS1iYjhjLTE2MTljNDIzODExMyIsInJoIjoiMC5BV1lBa3lLbFRKOW1xRS1BZVBqcmk0R2tqWjRkWWZ1Wl9zRkZ2NWYtb1cxVVZDTm1BUGcuIiwic2NwIjoidXNlcl9pbXBlcnNvbmF0aW9uIiwic3ViIjoiRm1yWC1pcEg2OEU1Qnd3NURFU1ZHNk9NUW5odUt6X3NNMXZyZU5yMVpqdyIsInRpZCI6IjRjYTUyMjkzLTY2OWYtNGZhOC04MDc4LWY4ZWI4YjgxYTQ4ZCIsInVuaXF1ZV9uYW1lIjoibGl2ZS5jb20jc2FtcmlkaGlzMTk4MEBob3RtYWlsLmNvbSIsInV0aSI6Ik5QdHpjdHlYZFVlVS1pcEtvYXFOQUEiLCJ2ZXIiOiIxLjAifQ.PTIp4oQH4YXkrM8Li3o18ass5aqkuCLTOHoQ18SsaKBjBHYdQ_tz7Ij2gaLqVAXO3Its_9uOFPmFcTxuoVbU-QWV2DbWyI5__YcZ5CamWfZMPIWgx-2cXMsi1ThYQCW2dGB5OZjsnd2h2pcNxFXPZI7iLesaYAWN6xugcDvwoxxl5b7DbOMmnuDJgoLWGZOPRgMu4jwamzWPZmBkn2UCKHBm3_rRPe-FLio8vZT3P81a4wv-R4C3V8gdpvmClDbaLXrw4PFZ-kvULCLX5NPfl7mp0jWeUrZDw2ciWzTQWVKGtExx-ZmX740n7DH4eI6jkmaIVkLGzNC5EGuXDsGJoA\n"))
-						.setHeader("user-agent", simple("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"))
-						.setHeader("origin", simple("https://samfhirsdfdash.azurewebsites.net"))
-						.setHeader("sec-fetch-site", simple("cross-site"))
-						.setHeader("sec-fetch-mode", simple("cors"))
-						.setHeader("sec-fetch-dest", simple("empty"))
-						.setHeader("referer", simple("https://samfhirsdfdash.azurewebsites.net/"))
-						.setHeader("accept-language", simple("en-GB,en-US;q=0.9,en;q=0.8"))
-						.toF("https://samfhirsdf.azurehealthcareapis.com/Practitioner" + "?bridgeEndpoint=true")
-						.setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-						.setHeader(Exchange.HTTP_METHOD, simple("GET"))
-						.unmarshal(jacksonDataFormat)
-						.process(new MyProcessor())
-						.log("Response  ${body}")
-						.convertBodyTo(Root.class)
+				from("direct:myService")
+								.streamCaching() //
+								.setHeader(Exchange.HTTP_METHOD, simple("GET"))
+								.setHeader("authority", simple("https://pegacorn-fhirplace-gateway.site-a:30502/pegacorn/internal/fhir/r4"))
+								.setHeader("accept", simple("/"))
+								//.setHeader("authorization", simple("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiJodHRwczovL3NhbWZoaXI4c2RmLmF6dXJlaGVhbHRoY2FyZWFwaXMuY29tIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNGNhNTIyOTMtNjY5Zi00ZmE4LTgwNzgtZjhlYjhiODFhNDhkLyIsImlhdCI6MTYxNTI1Nzk3MywibmJmIjoxNjE1MjU3OTczLCJleHAiOjE2MTUyNjE4NzMsImFjciI6IjEiLCJhaW8iOiJBVlFBcS84VEFBQUFOcDBQS1kvc3dhaFhFTUNielI1M0cxa3dUcG9PajYvekx3QzZQZys5aThYS09rVXJEdTZLNmo3NWd4VUZxdnF5YzU0VWk3MDV4TTlrTzlxMy9zTTAxcUhyOS8wK3hJU2lCbEJoV25WZUFPbz0iLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiOGY0YmJiMjQtYWU4MC00MDI2LWJhNzEtYmJlMzIzMDllN2JkIiwiYXBwaWRhY3IiOiIxIiwiZW1haWwiOiJzYW1yaWRoaXMxOTgwQGhvdG1haWwuY29tIiwiZmFtaWx5X25hbWUiOiJTaHUiLCJnaXZlbl9uYW1lIjoiU2FtIiwiaWRwIjoibGl2ZS5jb20iLCJpcGFkZHIiOiIxMzYuMTUzLjE0LjEwMiIsIm5hbWUiOiJTYW0gU2h1Iiwib2lkIjoiYjBmZGZmOTctMmZiNy00ZDM1LWJiOGMtMTYxOWM0MjM4MTEzIiwicmgiOiIwLkFXWUFreUtsVEo5bXFFLUFlUGpyaTRHa2pTUzdTNC1BcmlaQXVuRzc0eU1KNTcxbUFQZy4iLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzdWIiOiJoTFZtUE5IcldReFRkM0lEM2pSX3V0eVU3c1dZRDNqSjlaelp5d3M3QUFrIiwidGlkIjoiNGNhNTIyOTMtNjY5Zi00ZmE4LTgwNzgtZjhlYjhiODFhNDhkIiwidW5pcXVlX25hbWUiOiJsaXZlLmNvbSNzYW1yaWRoaXMxOTgwQGhvdG1haWwuY29tIiwidXRpIjoiVkhVVmdRMzdZa0MtMWtJdm5MRVlBQSIsInZlciI6IjEuMCJ9.HgYCWRuTA5bPz8ggUFkmKB8tgYotmUbYk1gpuEHin5ywnX6EdIbQ20HavHlkJNNxgGiPwGNHOaUzOVmrGog001pgXYRHpLn9qoYgZZtrDlV5dYRShNXENBL597WUMxs3jCv03CeD90eSFo2TPY99QQh0804utpxtHVOl5fI03LK-kTxob9bUC0YKxqJ4fi8_06LsRK7jets9uLFprrb3ITKmdFeOLEvfeuoHPtM73kjB94TmnRHnuW-A6N3fIjviR_bFdvtpzZm29VB-oxC8bHxlqRGycikI88pkQnhKv_y56Rj-qalPKDoi6OlHs98emlqOOpWJMNdcKmoFolpbtw"))
+								//client.DefaultRequestHeaders.Add("Accept-Charset", "utf-8");
+								//client.DefaultRequestHeaders.Add("Accept", "application/fhir+xml;q=1.0, application/fhir+json;q=1.0, application/xml+fhir;q=0.9, application/json+fhir;q=0.9");
+								.setHeader("x-api-key",  simple("fmg2vPYxKYYjwcQq3fwP8zXlQKSehzgPyvR3u2Lde2eINx86QwV1ENH2wpD"))
+								//client.DefaultRequestHeaders.Add("User-Agent", "HAPI-FHIR/5.1.0 (FHIR Client; FHIR 4.0.1/R4; apache)");
+								//client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");						
+								.setHeader("user-agent", simple("HAPI-FHIR/5.1.0 (FHIR Client; FHIR 4.0.1/R4; apache)"))
+								.setHeader("origin", simple("https://samfhir8sdfdashdash.azurewebsites.net"))
+								.setHeader("sec-fetch-site", simple("cross-site"))
+								.setHeader("sec-fetch-mode", simple("cors"))
+								.setHeader("sec-fetch-dest", simple("empty"))
+								.setHeader("referer", simple("https://pegacorn-fhirplace-gateway.site-a:30502/pegacorn/internal/fhir/r4"))
+								.setHeader("accept-language", simple("en-GB,en-US;q=0.9,en;q=0.8"))
+								.toF("https://pegacorn-fhirplace-gateway.site-a:30502/pegacorn/internal/fhir/r4/Practitioner" + "?bridgeEndpoint=true")
+								.setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+								.setHeader(Exchange.HTTP_METHOD, simple("GET"))
+								.unmarshal(jacksonDataFormat)
+								.process(new MyProcessor())jacksonDataFormat
+								.log("Response  ${body}")
+								.convertBodyTo(Root.class)
 
-						//.to("https://samfhirsdf.azurehealthcareapis.com/Practitioner").process(new MyProcessor());
-						.end();
+								//.to("https://samfhir8sdf.azurehealthcareapis.com/Practitioner").process(new MyProcessor());
+								.end();
 
 		rest().get("/api")
 						.route()

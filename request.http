@@ -1,4 +1,4 @@
-GET  localhost:8085/services/api
+GET  localhost:8085/services/api?id -1
 
 ####
 GET http://jsonplaceholder.typicode.com/todos/1
