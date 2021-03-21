@@ -39,7 +39,7 @@ public class PassThroughRouter extends RouteBuilder {
 								.setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
 								.setHeader(Exchange.HTTP_METHOD, simple("GET"))
 								.unmarshal(jacksonDataFormat)
-								.process(new MyProcessor())jacksonDataFormat
+								.process(new MyProcessor())
 								.log("Response  ${body}")
 								.convertBodyTo(Root.class)
 
